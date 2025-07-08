@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+    --font-family-default: "Inter", sans-serif;
+    --font-family-heading: "Poppins", sans-serif;
+    --font-family-btn: "Montserrat", sans-serif;
+    --color-heading-paragraph: #555;
+}
+
+@utilities {
+    .font-family-heading {
+        font-family: var(--font-family-heading);
+    }
+
+    .font-family-btn {
+        font-family: var(--font-family-btn);
+    }
+    .font-family-primary {
+        font-family: var(--font-family-default);
+    }
+}
