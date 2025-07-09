@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import "./App.css";
 import OnBoardingPage from "./pages/OnBoardingPage";
@@ -8,12 +8,13 @@ import Sidebar from "./components/Sidebar";
 import Chat from "./components/Chat";
 import ChatCard from "./components/ChatCard";
 
-// Layout component for pages with sidebar
-const MainLayout = () => {
+const ChatLayout = () => {
+  const [showSidebar, setShowSidebar] = useState(true);
+
   return (
-    <div className="flex h-screen">
-      <Sidebar />
-      <Outlet />
+    <div className="flex h-screen bg-gray-50">
+      <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
+      <Outlet context={{ showSidebar, setShowSidebar }} />
     </div>
   );
 };
@@ -34,7 +35,7 @@ function App() {
     },
     {
       path: "/chat",
-      element: <MainLayout />,
+      element: <ChatLayout />,
       children: [
         {
           index: true,
@@ -43,16 +44,16 @@ function App() {
         {
           path: ":chatId",
           element: <ChatCard />,
+          loader: ({ params }) => {
+            // You can add any data loading logic here if needed
+            return { chatId: params.chatId };
+          },
         },
       ],
     },
   ]);
 
-  return (
-    <>
-      <RouterProvider router={router} />
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

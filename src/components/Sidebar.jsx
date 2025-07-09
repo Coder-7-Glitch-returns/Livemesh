@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { FaPlus, FaUser } from "react-icons/fa6";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { FaPlus, FaUser, FaTimes } from "react-icons/fa";
 
 const mockChats = [
   {
@@ -32,11 +32,21 @@ const mockChats = [
   },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ showSidebar, setShowSidebar }) {
   const [open, setOpen] = useState(false);
+  const location = useLocation();
+  useEffect(() => {
+    if (location.pathname !== "/chat") {
+      setShowSidebar(false);
+    }
+  }, [location, setShowSidebar]);
 
   return (
-    <div className="w-[400px] bg-white border-r border-gray-200 flex flex-col h-full">
+    <div
+      className={`lg:w-[25%] w-full bg-white border-r border-gray-200 flex flex-col h-full lg:relative fixed lg:top-0 top-0 left-0 z-20 transition-all duration-300 ease-in-out ${
+        showSidebar ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+      }`}
+    >
       {/* Header */}
       <div className="flex justify-between items-center p-4 border-b border-gray-200">
         <div>
@@ -71,7 +81,11 @@ export default function Sidebar() {
       <div className="flex-1 overflow-y-auto">
         {mockChats.map(
           ({ id, name, lastMessage, time, unread, avatar, isOnline }) => (
-            <Link to={`/chat/${id}`} key={id}>
+            <Link
+              to={`/chat/${id}`}
+              key={id}
+              className="block hover:no-underline"
+            >
               <div className="p-3 hover:bg-gray-50 rounded-lg transition-colors duration-200 mx-2 my-1 group">
                 <div className="flex items-center gap-3">
                   <div className="relative">

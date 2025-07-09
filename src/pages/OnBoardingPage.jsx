@@ -6,15 +6,15 @@ export default function OnBoardingPage() {
   return (
     <section className="bg-gradient-to-br from-[#74b9ff] via-[#0984e3] to-[#6c5ce7] min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
       {/* Animated background elements */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 sm:block hidden">
         <div className="absolute top-20 left-10 w-2 h-2 bg-white/60 rounded-full animate-ping"></div>
         <div className="absolute top-40 right-20 w-1 h-1 bg-white/40 rounded-full animate-pulse"></div>
         <div className="absolute bottom-32 left-1/4 w-1.5 h-1.5 bg-white/50 rounded-full animate-bounce"></div>
         <div className="absolute bottom-20 right-1/3 w-1 h-1 bg-white/60 rounded-full animate-ping delay-300"></div>
 
         {/* Floating geometric shapes */}
-        <div className="absolute top-1/4 left-1/4 w-8 h-8 border border-white/20 rotate-45 animate-spin-slow"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-6 h-6 border border-white/20 rounded-full animate-pulse delay-500"></div>
+        <div className="absolute top-1/4 left-1/4 w-8 h-8 border border-white/20 rotate-45 animate-spin-slow sm:block hidden"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-6 h-6 border border-white/20 rounded-full animate-pulse delay-500 sm:block hidden"></div>
       </div>
 
       {/* Main content */}
@@ -80,7 +80,7 @@ export default function OnBoardingPage() {
                 </svg>
               </div>
 
-              <span className="text-lg font-medium relative">
+              <span className="sm:text-lg font-medium relative">
                 Continue with Google
               </span>
 

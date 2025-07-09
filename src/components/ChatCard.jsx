@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { IoSend } from "react-icons/io5";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useOutletContext } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 
 export default function ChatCard() {
@@ -75,7 +75,7 @@ export default function ChatCard() {
       },
     ],
   };
-
+  const { setShowSidebar } = useOutletContext();
   const { chatId } = useParams();
   const navigate = useNavigate();
   const [messages, setMessages] = useState([]);
@@ -126,6 +126,13 @@ export default function ChatCard() {
     setNewMessage("");
   };
 
+  const handleBack = () => {
+    navigate("/chat");
+    if (window.innerWidth < 1024 && setShowSidebar) {
+      setShowSidebar(true);
+    }
+  };
+
   if (error || loading) {
     return (
       <div className="flex-1 flex items-center justify-center p-4 bg-gray-50">
@@ -133,7 +140,7 @@ export default function ChatCard() {
           <div className="text-center">
             <p className="text-red-500 text-lg font-medium mb-4">{error}</p>
             <button
-              onClick={() => navigate("/chat")}
+              onClick={handleBack}
               className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 mx-auto"
             >
               <FaArrowLeft /> Back to Chats
@@ -152,12 +159,12 @@ export default function ChatCard() {
   }
 
   return (
-    <div className="flex flex-col h-screen w-full">
+    <div className="flex flex-col h-screen lg:w-[75%] w-full">
       {/* Chat Header */}
       <div className="sticky top-0 z-10 bg-white shadow-sm p-4 border-b">
         <div className="flex items-center gap-4">
           <button
-            onClick={() => navigate("/chat")}
+            onClick={handleBack}
             className="p-2 rounded-full hover:bg-gray-100 transition-colors"
           >
             <FaArrowLeft className="text-gray-600" />
@@ -183,7 +190,7 @@ export default function ChatCard() {
               className={`flex ${isMe ? "justify-end" : "justify-start"}`}
             >
               <div
-                className={`max-w-[80%] px-4 py-2 rounded-xl ${
+                className={`max-w-[80%] lg:max-w-[70%] px-4 py-2 rounded-xl ${
                   isMe
                     ? "bg-blue-600 text-white rounded-tr-none"
                     : "bg-white text-gray-800 shadow-sm rounded-tl-none"

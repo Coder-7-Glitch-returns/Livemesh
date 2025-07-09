@@ -49,13 +49,13 @@ export default function BirthdayPage() {
           age
         </p>
       </div>
-      <div className="w-[368px] h-[212px] rounded-4xl bg-white mt-6 z-10">
-        <div className="flex items-center justify-center h-full">
+      <div className="sm:w-[368px] h-[212px] rounded-4xl bg-white mt-6 z-10 w-full">
+        <div className="flex items-center justify-center h-full w-full">
           <form className="flex flex-col items-center gap-4">
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker defaultValue={dayjs("2022-04-17")} />
             </LocalizationProvider>
-            <Link to={"/home"}>
+            <Link to={"/chat"}>
               <button
                 className="bg-gradient-to-r from-[#0984e3] to-[#06b6d4] text-white px-8 py-4 rounded-full text-lg font-semibold
               shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-in-out hover:bg-gradient-to-r
