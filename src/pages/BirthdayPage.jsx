@@ -49,8 +49,8 @@ export default function BirthdayPage() {
           age
         </p>
       </div>
-      <div className="sm:w-[368px] h-[212px] rounded-4xl bg-white mt-6 z-10 w-full">
-        <div className="flex items-center justify-center h-full w-full">
+      <div className="w-[368px] h-[212px] rounded-4xl bg-white mt-6 z-10">
+        <div className="flex items-center justify-center h-full">
           <form className="flex flex-col items-center gap-4">
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker defaultValue={dayjs("2022-04-17")} />
