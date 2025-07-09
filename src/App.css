@@ -1,91 +1,99 @@
 @import "tailwindcss";
 
 @theme {
-    --font-family-default: "Inter", sans-serif;
-    --font-family-heading: "Poppins", sans-serif;
-    --font-family-btn: "Montserrat", sans-serif;
-    --color-heading-paragraph: #555;
+  --font-family-default: "Inter", sans-serif;
+  --font-family-heading: "Poppins", sans-serif;
+  --font-family-btn: "Montserrat", sans-serif;
+  --color-heading-paragraph: #2d3436;
 }
 
 @utilities {
-    .font-family-heading {
-        font-family: var(--font-family-heading);
-    }
+  .font-family-heading {
+    font-family: var(--font-family-heading);
+  }
 
-    .font-family-btn {
-        font-family: var(--font-family-btn);
-    }
-    .font-family-primary {
-        font-family: var(--font-family-default);
-    }
+  .font-family-btn {
+    font-family: var(--font-family-btn);
+  }
+
+  .font-family-primary {
+    font-family: var(--font-family-default);
+  }
 }
 
 @keyframes fade-in-up {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
   }
 
-  @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
   }
 
-  @keyframes gradient-x {
-    0%,
-    100% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes gradient-x {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
   }
 
-  @keyframes expand {
-    0% {
-      width: 0;
-    }
-    100% {
-      width: 6rem;
-    }
+  50% {
+    background-position: 100% 50%;
   }
+}
 
-  @keyframes spin-slow {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  .animate-fade-in-up {
-    animation: fade-in-up 0.8s ease-out forwards;
-  }
-
-  .animate-float {
-    animation: float 3s ease-in-out infinite;
-  }
-
-  .animate-gradient-x {
-    animation: gradient-x 3s ease infinite;
-  }
-
-  .animate-expand {
-    animation: expand 1s ease-out 0.5s forwards;
+@keyframes expand {
+  0% {
     width: 0;
   }
 
-  .animate-spin-slow {
-    animation: spin-slow 8s linear infinite;
+  100% {
+    width: 6rem;
   }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-gradient-x {
+  animation: gradient-x 3s ease infinite;
+}
+
+.animate-expand {
+  animation: expand 1s ease-out 0.5s forwards;
+  width: 0;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}

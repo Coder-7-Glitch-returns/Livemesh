@@ -3,9 +3,11 @@
 section {
   padding: 0 3rem;
 }
+
 body {
-    background: linear-gradient(120deg, #E0F7FA, #B2EBF2, #80DEEA);
+  font-family: "Inter", sans-serif;
 }
+
 button {
   cursor: pointer;
   border: 0;
