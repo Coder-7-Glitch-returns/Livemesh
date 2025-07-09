@@ -3,6 +3,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
+import { Link } from "react-router";
 
 export default function BirthdayPage() {
   return (
@@ -54,14 +55,16 @@ export default function BirthdayPage() {
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker defaultValue={dayjs("2022-04-17")} />
             </LocalizationProvider>
-            <button
-              className="bg-gradient-to-r from-[#0984e3] to-[#06b6d4] text-white px-8 py-4 rounded-full text-lg font-semibold
+            <Link to={"/home"}>
+              <button
+                className="bg-gradient-to-r from-[#0984e3] to-[#06b6d4] text-white px-8 py-4 rounded-full text-lg font-semibold
               shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-in-out hover:bg-gradient-to-r
             hover:from-[#0873c7] hover:to-[#05a5c0] active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#0984e3]
             focus:ring-opacity-50"
-            >
-              Continue
-            </button>
+              >
+                Continue
+              </button>
+            </Link>
           </form>
         </div>
       </div>
