@@ -1,0 +1,29 @@
+[
+    {
+      "id": "1",
+      "name": "John Doe",
+      "lastMessage": "Hey, how about our meeting tomorrow?",
+      "time": "12:30 PM",
+      "unread": 1,
+      "avatar": "/Favicon.png",
+      "isOnline": true
+    },
+    {
+      "id": "2",
+      "name": "Jane Smith",
+      "lastMessage": "I've sent you the project files",
+      "time": "11:45 AM",
+      "unread": 0,
+      "avatar": "/Favicon.png",
+      "isOnline": false
+    },
+    {
+        "id": "3",
+      "name": "Charlie Brown",
+      "lastMessage": "See you tomorrow at the conference room",
+      "time": "Yesterday",
+      "unread": 3,
+      "avatar": "/Favicon.png",
+      "isOnline": true
+    }
+]

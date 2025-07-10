@@ -44,10 +44,6 @@ function App() {
         {
           path: ":chatId",
           element: <ChatCard />,
-          loader: ({ params }) => {
-            // You can add any data loading logic here if needed
-            return { chatId: params.chatId };
-          },
         },
       ],
     },
