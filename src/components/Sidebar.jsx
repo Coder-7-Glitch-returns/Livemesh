@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { FaPlus, FaUser, FaTimes } from "react-icons/fa";
+import { FaPlus, FaTimes, FaUser } from "react-icons/fa";
 import mockData from "./data/mockData.json";
 import MockDataCard from "./cards/mockDataCard"; // Import the card component
 
@@ -40,23 +40,17 @@ export default function Sidebar({ showSidebar, setShowSidebar }) {
               {mockData.reduce((a, c) => a + c.unread, 0)} unread messages
             </p>
           </div>
-          <div className="flex items-center gap-3">
-            <div className="relative">
-              <button
-                onClick={() => {
-                  setIsPopupOpen(true);
-                }}
-                className="p-2 bg-blue-50 hover:bg-blue-100 rounded-full transition-colors duration-200"
-              >
-                <FaPlus className="text-blue-600 text-sm" />
-              </button>
-            </div>
-            <button className="p-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-full hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-sm">
-              <FaUser className="text-sm" />
+          <div className="relative">
+            <button
+              onClick={() => {
+                setIsPopupOpen(true);
+              }}
+              className="p-2 bg-blue-50 hover:bg-blue-100 rounded-full transition-colors duration-200"
+            >
+              <FaPlus className="text-blue-600 text-sm" />
             </button>
           </div>
         </div>
-
         {/* Chat List */}
         <div className="flex-1 overflow-y-auto">
           {mockData.map((chat) => (
@@ -71,14 +65,40 @@ export default function Sidebar({ showSidebar, setShowSidebar }) {
             />
           ))}
         </div>
+        {/* Profile */}
+        <div className="p-4 border-t border-gray-200 bg-white hover:bg-gray-50 transition-colors duration-200 h-[82.5px]">
+          <div className="flex items-center gap-4">
+            {/* Profile Picture */}
+            <div className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-500 text-white font-medium text-xl shadow-sm">
+              A
+            </div>
+            {/* User Info */}
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 justify-between">
+                <p className="font-medium text-gray-800 text-lg truncate">Ahad</p>
+                <span className="flex items-center gap-1">
+                  <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                  <span className="text-sm text-green-500">Online</span>
+                </span>
+              </div>
+              <p className="text-sm text-gray-500 truncate">
+                Coder | Anime Enthusiast | Gamer | Always leveling up in code,
+                stories, and strategy.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
-
       {/* Popup for new private chat */}
       {isPopupOpen && (
-        <div className="fixed inset-0 bg-gradient-to-br from-blue-900/30 to-purple-900/20 backdrop-blur-md flex items-center justify-center z-50 p-4 animate-fadeIn">
+        <div
+          className="fixed inset-0 bg-gradient-to-br from-blue-900/30 to-purple-900/20 backdrop-blur-md flex items-center
+        justify-center z-50 p-4 animate-fadeIn"
+        >
           {/* Glassmorphism Card */}
           <div
-            className="bg-white/90 backdrop-blur-lg rounded-2xl shadow-2xl w-full max-w-md overflow-hidden border border-white/20 animate-scaleIn"
+            className="bg-white/90 backdrop-blur-lg rounded-2xl shadow-2xl w-full max-w-md overflow-hidden border border-white/20
+            animate-scaleIn"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header with Gradient Accent */}
@@ -86,7 +106,10 @@ export default function Sidebar({ showSidebar, setShowSidebar }) {
               <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-blue-500 to-purple-600"></div>
               <div className="flex justify-between items-center p-6 pb-4">
                 <div>
-                  <h3 className="sm:text-2xl text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  <h3
+                    className="sm:text-2xl text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text
+                  text-transparent"
+                  >
                     Connect with Users
                   </h3>
                   <p className="text-sm text-gray-500 mt-1">
@@ -108,7 +131,8 @@ export default function Sidebar({ showSidebar, setShowSidebar }) {
                 <input
                   type="text"
                   placeholder="Search users..."
-                  className="w-full p-3 pl-12 bg-white/80 border border-gray-200/80 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400/50 transition-all duration-300 shadow-sm"
+                  className="w-full p-3 pl-12 bg-white/80 border border-gray-200/80 rounded-xl focus:outline-none focus:ring-2
+                  focus:ring-blue-400/30 focus:border-blue-400/50 transition-all duration-300 shadow-sm"
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
                 <div className="absolute left-4 top-3.5">
@@ -179,7 +203,10 @@ export default function Sidebar({ showSidebar, setShowSidebar }) {
                           </p>
                         </div>
                       </div>
-                      <div className="absolute inset-0 rounded-xl border-2 border-transparent group-hover:border-blue-200/50 transition-all pointer-events-none"></div>
+                      <div
+                        className="absolute inset-0 rounded-xl border-2 border-transparent group-hover:border-blue-200/50 transition-all
+                      pointer-events-none"
+                      ></div>
                     </div>
                   ))}
                 </div>
@@ -210,7 +237,8 @@ export default function Sidebar({ showSidebar, setShowSidebar }) {
                           strokeLinecap="round"
                           strokeLinejoin="round"
                           strokeWidth={2}
-                          d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"
+                          d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0
+                            11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"
                         />
                       </svg>
                     </div>
@@ -231,10 +259,14 @@ export default function Sidebar({ showSidebar, setShowSidebar }) {
                   setIsPopupOpen(false);
                   setSelectedUser(null);
                 }}
-                className="w-full py-3.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-medium rounded-xl hover:shadow-lg hover:shadow-blue-200 transition-all duration-300 relative overflow-hidden group"
+                className="w-full py-3.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-medium rounded-xl hover:shadow-lg
+                hover:shadow-blue-200 transition-all duration-300 relative overflow-hidden group"
               >
                 <span className="relative z-10">Start New Conversation</span>
-                <span className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                <span
+                  className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-700 opacity-0 group-hover:opacity-100
+                transition-opacity duration-300"
+                ></span>
                 <span className="absolute top-0 left-0 w-full h-full bg-white/10 group-hover:bg-white/0 transition-all duration-500"></span>
               </button>
             </div>

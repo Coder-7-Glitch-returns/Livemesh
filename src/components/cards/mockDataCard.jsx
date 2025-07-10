@@ -14,7 +14,10 @@ export default function MockDataCard({
         <div className="p-3 hover:bg-gray-50 rounded-lg transition-colors duration-200 mx-2 my-1 group">
           <div className="flex items-center gap-3">
             <div className="relative">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-indigo-600 flex items-center justify-center text-white font-medium">
+              <div
+                className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-indigo-600 flex items-center justify-center
+              text-white font-medium"
+              >
                 {name.charAt(0)}
               </div>
               {isOnline && (

@@ -100,7 +100,7 @@ export default function ChatCard() {
   const [loading, setLoading] = useState(true); // Loading state to show loading spinner
   const [error, setError] = useState(null); // Error state to handle chat not found or other errors
   const messagesEndRef = useRef(null); // Ref to scroll to the bottom of the messages container
-  const [isDropdownToggle, setIsDropdownToggle] = useState();
+  const [isDropdownToggle, setIsDropdownToggle] = useState(false);
 
   // Effect to fetch chat data based on chatId
   useEffect(() => {
@@ -185,7 +185,10 @@ export default function ChatCard() {
   return (
     <div className="flex flex-col h-screen lg:w-[75%] w-full">
       {/* Header with Back Button and Chat Info */}
-      <div className="sticky top-0 z-10 bg-gradient-to-r from-blue-50 to-indigo-50 shadow-md p-4 border-b border-gray-200 flex items-center justify-between">
+      <div
+        className="sticky top-0 z-10 bg-gradient-to-r from-blue-50 to-indigo-50 shadow-md p-4 border-b border-gray-200 flex
+      items-center justify-between"
+      >
         <div className="flex items-center gap-4">
           <button
             onClick={handleBack}
@@ -196,7 +199,10 @@ export default function ChatCard() {
           </button>
           <div className="flex items-center gap-3">
             <div className="relative">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-indigo-600 flex items-center justify-center text-white font-medium">
+              <div
+                className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-indigo-600 flex items-center justify-center
+              text-white font-medium"
+              >
                 {messages[0]?.sender.charAt(0)}
               </div>
               {messages[0]?.isOnline && (
@@ -236,11 +242,15 @@ export default function ChatCard() {
             <FaEllipsisVertical className="text-blue-600" />
           </button>
           {isDropdownToggle && (
-            <div className="absolute right-0 bg-white shadow-xl rounded-lg mt-2 w-56 top-10 border border-gray-100 overflow-hidden animate-fade-in">
+            <div
+              className="absolute right-0 bg-white shadow-xl rounded-lg mt-2 w-56 top-10 border border-gray-100 overflow-hidden
+            animate-fade-in"
+            >
               <ul className="py-1">
                 <Link to={`/senderProfile/${chatId}`}>
                   <li
-                    className="px-4 py-3 hover:bg-blue-50 cursor-pointer flex items-center gap-3 text-gray-700 hover:text-blue-600 transition-colors"
+                    className="px-4 py-3 hover:bg-blue-50 cursor-pointer flex items-center gap-3 text-gray-700 hover:text-blue-600
+                    transition-colors"
                     onClick={() => setIsDropdownToggle(false)}
                   >
                     <FaUser className="text-blue-500" />
@@ -248,26 +258,30 @@ export default function ChatCard() {
                   </li>
                 </Link>
                 <li
-                  className="px-4 py-3 hover:bg-blue-50 cursor-pointer flex items-center gap-3 text-gray-700 hover:text-blue-600 transition-colors"
+                  className="px-4 py-3 hover:bg-blue-50 cursor-pointer flex items-center gap-3 text-gray-700 hover:text-blue-600
+                  transition-colors"
                   onClick={() => setIsDropdownToggle(false)}
                 >
                   <FaBellSlash className="text-blue-500" />
                   Mute Notifications
                 </li>
                 <li
-                  className="px-4 py-3 hover:bg-blue-50 cursor-pointer flex items-center gap-3 text-gray-700 hover:text-blue-600 transition-colors"
+                  className="px-4 py-3 hover:bg-blue-50 cursor-pointer flex items-center gap-3 text-gray-700 hover:text-blue-600
+                  transition-colors"
                   onClick={() => setIsDropdownToggle(false)}
                 >
                   <FaLock className="text-blue-500" />
                   Block User
                 </li>
-                <li
-                  className="px-4 py-3 hover:bg-blue-50 cursor-pointer flex items-center gap-3 text-red-600 transition-colors"
-                  onClick={() => setIsDropdownToggle(false)}
-                >
-                  <FaTrash className="text-red-500" />
-                  Delete Chat
-                </li>
+                <Link to={"/chat"}>
+                  <li
+                    className="px-4 py-3 hover:bg-blue-50 cursor-pointer flex items-center gap-3 text-red-600 transition-colors"
+                    onClick={() => setIsDropdownToggle(false)}
+                  >
+                    <FaTrash className="text-red-500" />
+                    Delete Chat
+                  </li>
+                </Link>
               </ul>
             </div>
           )}
