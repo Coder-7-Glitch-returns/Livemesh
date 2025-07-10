@@ -1,9 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import { IoSend } from "react-icons/io5";
-import { useParams, useNavigate, useOutletContext } from "react-router-dom";
+import {
+  useParams,
+  useNavigate,
+  useOutletContext,
+  Link,
+} from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
+import { FaEllipsisVertical } from "react-icons/fa6";
+import { FaUser, FaBellSlash, FaLock, FaTrash } from "react-icons/fa6";
 
 export default function ChatCard() {
+  // Sample chat data
+  // In a real application, this would be fetched from an API or database
   const chatData = {
     1: [
       {
@@ -75,19 +84,21 @@ export default function ChatCard() {
       },
     ],
   };
-  const { setShowSidebar } = useOutletContext();
-  const { chatId } = useParams();
-  const navigate = useNavigate();
-  const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const messagesEndRef = useRef(null);
+  const { setShowSidebar } = useOutletContext(); // Assuming this is passed from a parent component to control sidebar visibility
+  const { chatId } = useParams(); // Get the chatId from the URL parameters
+  const navigate = useNavigate(); // Use navigate to programmatically change routes
+  const [messages, setMessages] = useState([]); // Initialize messages state
+  const [newMessage, setNewMessage] = useState(""); // State for new message input
+  const [loading, setLoading] = useState(true); // Loading state to show loading spinner
+  const [error, setError] = useState(null); // Error state to handle chat not found or other errors
+  const messagesEndRef = useRef(null); // Ref to scroll to the bottom of the messages container
+  const [isDropdownToggle, setIsDropdownToggle] = useState();
 
+  // Effect to fetch chat data based on chatId
   useEffect(() => {
     setLoading(true);
     setError(null);
-
+    // Simulate fetching chat data with a timeout
     const timeout = setTimeout(() => {
       const data = chatData[chatId];
       if (!data) {
@@ -101,15 +112,18 @@ export default function ChatCard() {
 
     return () => clearTimeout(timeout);
   }, [chatId, navigate]);
-
+  // Effect to scroll to the bottom of the messages when they change
+  // This ensures that the latest message is always visible
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
-
+  // Function to scroll to the bottom of the messages container
+  // This is called after messages are updated to ensure the latest message is visible
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
-
+  // Function to handle sending a new message
+  // It checks if the new message is not empty, creates a message object, and updates
   const handleSend = () => {
     if (!newMessage.trim()) return;
     const msg = {
@@ -125,14 +139,16 @@ export default function ChatCard() {
     setMessages((prev) => [...prev, msg]);
     setNewMessage("");
   };
-
+  // Function to handle going back to the chat list
+  // It navigates to the "/chat" route and shows the sidebar if on a small
   const handleBack = () => {
     navigate("/chat");
     if (window.innerWidth < 1024 && setShowSidebar) {
       setShowSidebar(true);
     }
   };
-
+  // If there's an error or loading, show a loading spinner or error message
+  // This is a simple loading state that can be enhanced with a spinner or skeleton loader
   if (error || loading) {
     return (
       <div className="flex-1 flex items-center justify-center p-4 bg-gray-50">
@@ -160,27 +176,95 @@ export default function ChatCard() {
 
   return (
     <div className="flex flex-col h-screen lg:w-[75%] w-full">
-      {/* Chat Header */}
-      <div className="sticky top-0 z-10 bg-white shadow-sm p-4 border-b">
+      {/* Header with Back Button and Chat Info */}
+      <div className="sticky top-0 z-10 bg-gradient-to-r from-blue-50 to-indigo-50 shadow-md p-4 border-b border-gray-200 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <button
             onClick={handleBack}
-            className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+            className="p-2 rounded-full hover:bg-blue-100 transition-colors duration-200 group"
+            aria-label="Back"
           >
-            <FaArrowLeft className="text-gray-600" />
+            <FaArrowLeft className="text-blue-600 group-hover:text-blue-800 transition-colors" />
           </button>
-          <div>
-            <h2 className="text-lg font-semibold text-gray-800">
-              {messages[0]?.sender}
-            </h2>
-            <p className="text-xs text-gray-500">
-              {messages.length} messages •{" "}
-              {messages[0]?.isOnline ? "Online" : "Last seen recently"}
-            </p>
+          <div className="flex items-center gap-3">
+            <div className="relative">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-indigo-600 flex items-center justify-center text-white font-medium">
+                {messages[0]?.sender.charAt(0)}
+              </div>
+              {messages[0]?.isOnline && (
+                <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
+              )}
+            </div>
+            <div>
+              <h2 className="text-lg font-semibold text-gray-800">
+                {messages[0]?.sender}
+              </h2>
+              <p className="text-xs text-gray-500 flex items-center gap-1">
+                <span>
+                  {messages.length}{" "}
+                  {messages.length === 1 ? "message" : "messages"}
+                </span>
+                <span>•</span>
+                <span className="flex items-center gap-1">
+                  {messages[0]?.isOnline ? (
+                    <>
+                      <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                      Online
+                    </>
+                  ) : (
+                    "Last seen recently"
+                  )}
+                </span>
+              </p>
+            </div>
           </div>
         </div>
+        <div className="flex items-center gap-2 relative">
+          <button
+            className="p-2 rounded-full hover:bg-blue-100 transition-colors duration-200 relative"
+            onClick={() => setIsDropdownToggle(!isDropdownToggle)}
+            aria-label="More options"
+          >
+            <FaEllipsisVertical className="text-blue-600" />
+          </button>
+          {isDropdownToggle && (
+            <div className="absolute right-0 bg-white shadow-xl rounded-lg mt-2 w-56 top-10 border border-gray-100 overflow-hidden animate-fade-in">
+              <ul className="py-1">
+                <Link to={`/senderProfile/${chatId}`}>
+                  <li
+                    className="px-4 py-3 hover:bg-blue-50 cursor-pointer flex items-center gap-3 text-gray-700 hover:text-blue-600 transition-colors"
+                    onClick={() => setIsDropdownToggle(false)}
+                  >
+                    <FaUser className="text-blue-500" />
+                    View Profile
+                  </li>
+                </Link>
+                <li
+                  className="px-4 py-3 hover:bg-blue-50 cursor-pointer flex items-center gap-3 text-gray-700 hover:text-blue-600 transition-colors"
+                  onClick={() => setIsDropdownToggle(false)}
+                >
+                  <FaBellSlash className="text-blue-500" />
+                  Mute Notifications
+                </li>
+                <li
+                  className="px-4 py-3 hover:bg-blue-50 cursor-pointer flex items-center gap-3 text-gray-700 hover:text-blue-600 transition-colors"
+                  onClick={() => setIsDropdownToggle(false)}
+                >
+                  <FaLock className="text-blue-500" />
+                  Block User
+                </li>
+                <li
+                  className="px-4 py-3 hover:bg-blue-50 cursor-pointer flex items-center gap-3 text-red-600 transition-colors"
+                  onClick={() => setIsDropdownToggle(false)}
+                >
+                  <FaTrash className="text-red-500" />
+                  Delete Chat
+                </li>
+              </ul>
+            </div>
+          )}
+        </div>
       </div>
-
       {/* Messages Container */}
       <div className="flex-1 overflow-y-auto p-4">
         <div className="space-y-3">
@@ -215,8 +299,7 @@ export default function ChatCard() {
           <div ref={messagesEndRef} />
         </div>
       </div>
-
-      {/* Message Input */}
+      {/* Input Area for New Message */}
       <div className="sticky bottom-0 bg-white border-t p-4">
         <div>
           <div className="flex items-center bg-white rounded-lg shadow-sm border p-1">

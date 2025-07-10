@@ -7,6 +7,8 @@ import BirthdayPage from "./pages/BirthdayPage";
 import Sidebar from "./components/Sidebar";
 import Chat from "./components/Chat";
 import ChatCard from "./components/ChatCard";
+import SenderProfile from "./components/SenderProfile";
+import SenderProfileCard from "./components/SenderProfileCard";
 
 const ChatLayout = () => {
   const [showSidebar, setShowSidebar] = useState(true);
@@ -44,6 +46,20 @@ function App() {
         {
           path: ":chatId",
           element: <ChatCard />,
+        },
+      ],
+    },
+    {
+      path: "/senderProfile",
+      element: <SenderProfile />,
+      children: [
+        {
+          index: true,
+          element: <SenderProfile />,
+        },
+        {
+          path: ":senderId",
+          element: <SenderProfileCard />,
         },
       ],
     },
