@@ -82,10 +82,18 @@ export default function ChatCard() {
         time: "Yesterday",
         isMe: true,
       },
+      {
+        id: 3,
+        sender: "Charlie Brown",
+        text: "See you tomorrow at the conference room",
+        time: "Yesterday",
+        isMe: false,
+      },
     ],
   };
   const { setShowSidebar } = useOutletContext(); // Assuming this is passed from a parent component to control sidebar visibility
   const { chatId } = useParams(); // Get the chatId from the URL parameters
+  const { senderId } = useParams(); // Get the senderId from the URL parameters
   const navigate = useNavigate(); // Use navigate to programmatically change routes
   const [messages, setMessages] = useState([]); // Initialize messages state
   const [newMessage, setNewMessage] = useState(""); // State for new message input
